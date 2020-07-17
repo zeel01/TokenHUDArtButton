@@ -9,7 +9,7 @@
 	"scripts": [
 		"artbutton.js"
 	],
-	"manifest": "",
-	"url": "https://github.com/zeel01/",
-	"download": ""
+	"manifest": "https://raw.githubusercontent.com/zeel01/TokenHUDArtButton/master/module.json",
+	"url": "https://github.com/zeel01/TokenHUDArtButton",
+	"download": "https://github.com/zeel01/TokenHUDArtButton/releases/download/v0.1.1/token-hud-art-button.zip"
 }
