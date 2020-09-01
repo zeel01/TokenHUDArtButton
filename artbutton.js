@@ -1,3 +1,21 @@
+function prepShowArtKeybinding(placeable, control) {
+	let doc = $(document);
+	doc.off("keydown.artButton");
+	if (!control) return;
+
+	doc.on("keydown.artButton", (event) => {
+		if (event.shiftKey && event.key == "Z") {
+			let pop = new ImagePopout(placeable.data.img, {
+				shareable: true
+			}).render(true);
+			if (!event.altKey) pop.shareImage();
+		}
+	});
+}
+
+Hooks.on("controlTile", prepShowArtKeybinding);
+Hooks.on("controlToken", prepShowArtKeybinding);
+
 Hooks.on("renderTileHUD", (hud, html, tile) => {
 	let artButton = document.createElement("div");
 	html.focus();
