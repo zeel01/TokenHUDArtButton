@@ -6,9 +6,10 @@ function prepShowArtKeybinding(placeable, control) {
 	doc.on("keydown.artButton", (event) => {
 		if (event.shiftKey && event.key == "Z") {
 			let pop = new ImagePopout(placeable.data.img, {
+				title: placeable instanceof Token ? game.i18n.localize("Token Image") : game.i18n.localize("Tile Image"),
 				shareable: true
 			}).render(true);
-			if (!event.altKey) pop.shareImage();
+			if (!event.altKey && game.user.isGM) pop.shareImage();
 		}
 	});
 }
@@ -30,7 +31,7 @@ Hooks.on("renderTileHUD", (hud, html, tile) => {
 			title: game.i18n.localize("Tile Image"),
 			shareable: true
 		}).render(true);
-		if (event.shiftKey) pop.shareImage();
+		if (event.shiftKey && game.user.isGM) pop.shareImage();
 	});
 
 	html.find("div.left").append(artButton);
@@ -67,14 +68,14 @@ Hooks.on("renderTokenHUD", (hud, html, token) => {
 			shareable: true,
 			uuid: actor.uuid
 		}).render(true);
-		if (event.shiftKey) pop.shareImage();
+		if (event.shiftKey && game.user.isGM) pop.shareImage();
 	});
 	$(artButton).contextmenu((event) => {
 		let pop = new ImagePopout(tokenImg, {
 			title: showName ? token.name : hiddenName,
 			shareable: true,
 		}).render(true);
-		if (event.shiftKey) pop.shareImage();
+		if (event.shiftKey && game.user.isGM) pop.shareImage();
 	});
 
 	html.find("div.left").append(artButton);
