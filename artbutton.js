@@ -1,3 +1,22 @@
+Hooks.on("renderTileHUD", (hud, html, tile) => {
+	let artButton = document.createElement("div");
+	html.focus();
+
+	artButton.classList.add("control-icon");
+	artButton.classList.add("artwork-open");
+	artButton.innerHTML = `<i class="fas fa-image fa-fw"></i>`
+	artButton.title = game.i18n.localize("TKNHAB.TooltipText");
+
+	$(artButton).click((event) => {
+		let pop = new ImagePopout(tile.img, {
+			title: game.i18n.localize("Tile Image"),
+			shareable: true
+		}).render(true);
+		if (event.shiftKey) pop.shareImage();
+	});
+
+	html.find("div.left").append(artButton);
+});
 Hooks.on("renderTokenHUD", (hud, html, token) => {
 	let actor = game.actors.get(token.actorId); 
 	let synthActor = token.actorData;
@@ -25,17 +44,19 @@ Hooks.on("renderTokenHUD", (hud, html, token) => {
 	}
 
 	$(artButton).click((event) => {
-		new ImagePopout(actorImg , {
+		let pop = new ImagePopout(actorImg , {
 			title: showName ? synthActor.name || actor.name : hiddenName,
 			shareable: true,
 			uuid: actor.uuid
 		}).render(true);
+		if (event.shiftKey) pop.shareImage();
 	});
 	$(artButton).contextmenu((event) => {
-		new ImagePopout(tokenImg, {
+		let pop = new ImagePopout(tokenImg, {
 			title: showName ? token.name : hiddenName,
 			shareable: true,
 		}).render(true);
+		if (event.shiftKey) pop.shareImage();
 	});
 
 	html.find("div.left").append(artButton);
