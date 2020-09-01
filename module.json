@@ -3,9 +3,9 @@
 	"title": "Token HUD Artwork Button",
 	"description": "This module adds a button to the token HUD that opens the target actor's artwork, or their token artwork on right-click.",
 	"author": "zeel",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"minimumCoreVersion": "0.6.5",
-	"compatibleCoreVersion": "0.6.5",
+	"compatibleCoreVersion": "0.6.6",
 	"scripts": [
 		"artbutton.js"
 	],
@@ -18,5 +18,5 @@
 	],
 	"manifest": "https://raw.githubusercontent.com/zeel01/TokenHUDArtButton/master/module.json",
 	"url": "https://github.com/zeel01/TokenHUDArtButton",
-	"download": "https://github.com/zeel01/TokenHUDArtButton/releases/download/v0.2.1/token-hud-art-button.zip"
+	"download": "https://github.com/zeel01/TokenHUDArtButton/releases/download/v0.3.0/token-hud-art-button.zip"
 }
