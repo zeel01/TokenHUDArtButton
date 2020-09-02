@@ -45,7 +45,7 @@ class ShowArt {
 	 * @memberof ShowArt
 	 */
 	static createImagePopup(image, title) {
-		return new ImagePopout(image, {
+		return new MultiMediaPopout(image, {
 			title, shareable: true,
 		}).render(true);
 	}
@@ -222,6 +222,23 @@ class ShowArt {
 	}
 }
 
+class MultiMediaPopout extends ImagePopout {
+	constructor(src, options = {}) {
+		super(src, options);
+
+		this.video = [".mp4", "webm"].includes(
+			src.slice(-4).toLowerCase()
+		);
+
+		this.options.template = "modules/token-hud-art-button/media-popout.html";
+	}
+
+	async getData(options) {
+		let data = await super.getData();
+		data.isVideo = this.video;
+		return data;
+	}
+}
 
 Hooks.on("controlTile", (...args) => ShowArt.prepTileKeybinding(...args));
 Hooks.on("controlToken", (...args) => ShowArt.prepTokenKeybinding(...args));
