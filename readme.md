@@ -8,4 +8,5 @@ It also adds shortcut keybindings:
 - Only the GM can show to everyone.
 - 
 *Token buttons suggested by: [Apostol Apostolov](https://trello.com/apostolatwork/activity) on [League of Extraordinary FoundryVTT Developers](https://trello.com/c/dWLMm99A/29-show-monster-artwork-via-token)*
+
 *Tile buttons and keybindings suggested by: akeran#7102 (Discord)*
