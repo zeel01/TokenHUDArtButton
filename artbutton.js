@@ -233,12 +233,48 @@ class MultiMediaPopout extends ImagePopout {
 		this.options.template = "modules/token-hud-art-button/media-popout.html";
 	}
 
+	/** @override */
 	async getData(options) {
 		let data = await super.getData();
 		data.isVideo = this.video;
 		return data;
 	}
+	/**
+	* Share the displayed image with other connected Users
+	*/
+	shareImage() {
+		game.socket.emit("module.token-hud-art-button", {
+			image: this.object,
+			title: this.options.title,
+			uuid: this.options.uuid
+		});
+	}
+
+	/* -------------------------------------------- */
+
+	/**
+	 * Handle a received request to display media.
+	 *
+	 * @override
+	 * @param {string} image
+	 * @param {string} title
+	 * @param {string} uuid
+	 * @return {MultiMediaPopout}
+	 * @private
+	 */
+	static _handleShareMedia({ image, title, uuid } = {}) {
+		return new MultiMediaPopout(image, {
+			title: title,
+			uuid: uuid,
+			shareable: false,
+			editable: false
+		}).render(true);
+	}
 }
+
+Hooks.once("ready", () => {
+	game.socket.on("module.token-hud-art-button", MultiMediaPopout._handleShareMedia);
+});
 
 Hooks.on("controlTile", (...args) => ShowArt.prepTileKeybinding(...args));
 Hooks.on("controlToken", (...args) => ShowArt.prepTokenKeybinding(...args));
