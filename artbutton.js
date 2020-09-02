@@ -6,7 +6,7 @@ function prepShowArtKeybinding(placeable, control) {
 	doc.on("keydown.artButton", (event) => {
 		if (event.shiftKey && event.key == "Z") {
 			let pop = new ImagePopout(placeable.data.img, {
-				title: placeable instanceof Token ? game.i18n.localize("Token Image") : game.i18n.localize("Tile Image"),
+				title: placeable instanceof Token ? game.i18n.localize("DND5E.Name") : game.i18n.localize("TKNHAB.TileImage"),
 				shareable: true
 			}).render(true);
 			if (!event.altKey && game.user.isGM) pop.shareImage();
@@ -28,7 +28,7 @@ Hooks.on("renderTileHUD", (hud, html, tile) => {
 
 	$(artButton).click((event) => {
 		let pop = new ImagePopout(tile.img, {
-			title: game.i18n.localize("Tile Image"),
+			title: game.i18n.localize("TKNHAB.TileImage"),
 			shareable: true
 		}).render(true);
 		if (event.shiftKey && game.user.isGM) pop.shareImage();
