@@ -1,0 +1,15 @@
+{
+  "name": "token-hud-art-button",
+  "version": "1.1.0",
+  "description": "This module adds a button to the token or tile HUD that opens the target actor's artwork, or their token artwork on right-click. Hold the shift key to automatically show to everyone.",
+  "main": "artbutton.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-zip": "^5.0.2"
+  }
+}
