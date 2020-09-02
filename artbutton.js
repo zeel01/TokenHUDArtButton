@@ -99,8 +99,8 @@ class ShowArt {
 		let actorImg = synthActor.img || actor.data.img;
 		let tokenImg = token.img;
 
-		let am = actorImg === mystery;
-		let tm = tokenImg === mystery;
+		const am = actorImg === mystery;
+		const tm = tokenImg === mystery;
 
 		if (!(am && tm)) {
 			actorImg = am ? tokenImg : actorImg;
