@@ -72,7 +72,7 @@ class ShowArt {
 	 */
 	static getTokenTitles(token, actor) {
 		const	M = CONST.TOKEN_DISPLAY_MODES,
-				dn = token.displayname;
+				dn = token.displayName;
 
 		if (dn == M.ALWAYS || dn == M.HOVER) return {
 			actor: token.actorData.name || actor.name,
