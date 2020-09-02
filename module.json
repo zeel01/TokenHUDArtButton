@@ -1,9 +1,9 @@
 {
 	"name": "token-hud-art-button",
-	"title": "Token HUD Artwork Button",
-	"description": "This module adds a button to the token HUD that opens the target actor's artwork, or their token artwork on right-click.",
+	"title": "Show Art",
+	"description": "This module adds a button to the token or tile HUD that opens the target actor's artwork, or their token artwork on right-click. It also adds shortcut keybindings: Shift+Z shows a tile/token to everyone, Shift+X shows an actor's art to everyone, hold Alt with either to show to only yourself.",
 	"author": "zeel",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"minimumCoreVersion": "0.6.5",
 	"compatibleCoreVersion": "0.6.6",
 	"scripts": [
@@ -18,5 +18,5 @@
 	],
 	"manifest": "https://raw.githubusercontent.com/zeel01/TokenHUDArtButton/master/module.json",
 	"url": "https://github.com/zeel01/TokenHUDArtButton",
-	"download": "https://github.com/zeel01/TokenHUDArtButton/releases/download/v0.3.0/artbutton.zip"
+	"download": "https://github.com/zeel01/TokenHUDArtButton/releases/download/v0.3.1/artbutton.zip"
 }
