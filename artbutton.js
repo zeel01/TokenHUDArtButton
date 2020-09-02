@@ -2,7 +2,7 @@
  * This class is used as a namespace for Show Art
  * static methods. It has no constructor.
  *
- * @class ShowArt
+ * @namespace ShowArt
  */
 class ShowArt {
 	/**
@@ -61,13 +61,17 @@ class ShowArt {
 		return game.actors.get(token.actorId); 
 	}
 	/**
+	 * @typedef {Object} titles
+	 * @property {string} actor - The title for the Actor
+	 * @property {string} token - The title for the Token
+	 *
 	 * Determin the correct image titles for either the token,
 	 * or the associated Actor.
 	 *
 	 * @static
 	 * @param {Token} token - The Token to get the title of.
 	 * @param {Actor} actor - The Actor to get the title of.
-	 * @return {object} { actor, token } The titles for actor and token.
+	 * @return {titles} The titles for actor and token.
 	 * @memberof ShowArt
 	 */
 	static getTokenTitles(token, actor) {
@@ -83,13 +87,17 @@ class ShowArt {
 		return { actor: hiddenName, token: hiddenName }
 	}
 	/**
+	 * @typedef {Object} images
+	 * @property {string} actor - The image for the Actor
+	 * @property {string} token - The image for the Token
+	 *
  	 * Determin the correct image paths for either the token,
 	 * or the associated Actor.
 	 *
 	 * @static
 	 * @param {Token} token - The Token to get the path of.
 	 * @param {Actor} actor - The Actor to get the path of.
-	 * @return {object} { actor, token } The paths of the actor and token images. 
+	 * @return {images} The paths of the actor and token images. 
 	 * @memberof ShowArt
 	 */
 	static getTokenImages(token, actor) {
@@ -222,7 +230,21 @@ class ShowArt {
 	}
 }
 
+/**
+ * Capable of handling images, as well as .mp4 and .webm video
+ * not very sophisticated.
+ *
+ * @class MultiMediaPopout
+ * @extends {ImagePopout}
+ */
 class MultiMediaPopout extends ImagePopout {
+	/**
+	 * Creates an instance of MultiMediaPopout.
+	 *
+	 * @param {string} src
+	 * @param {object} [options={}]
+	 * @memberof MultiMediaPopout
+	 */
 	constructor(src, options = {}) {
 		super(src, options);
 
@@ -250,14 +272,12 @@ class MultiMediaPopout extends ImagePopout {
 		});
 	}
 
-	/* -------------------------------------------- */
-
 	/**
 	 * Handle a received request to display media.
 	 *
 	 * @override
-	 * @param {string} image
-	 * @param {string} title
+	 * @param {string} image - The path to the image/media resource.
+	 * @param {string} title - The title for the popout title bar.
 	 * @param {string} uuid
 	 * @return {MultiMediaPopout}
 	 * @private
@@ -271,6 +291,7 @@ class MultiMediaPopout extends ImagePopout {
 		}).render(true);
 	}
 }
+
 
 Hooks.once("ready", () => {
 	game.socket.on("module.token-hud-art-button", MultiMediaPopout._handleShareMedia);
