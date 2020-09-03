@@ -1,4 +1,6 @@
 {
 	"TKNHAB.TooltipText": "Click to view artwork. Right-click to view token image.",
-	"TKNHAB.TileImage": "Tile Image"
+	"TKNHAB.TileImage": "Tile Image",
+	"TKNHAB.ActorImg": "Actor Image",
+	"TKNHAB.TokenImg": "Token Image"
 }

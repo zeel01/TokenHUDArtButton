@@ -83,8 +83,10 @@ class ShowArt {
 			token: token.name,
 		}
 
-		const hiddenName = game.i18n.localize("DND5E.Name");
-		return { actor: hiddenName, token: hiddenName }
+		return { 
+			actor: game.i18n.localize("TKNHAB.ActorImg"),
+			token: game.i18n.localize("TKNHAB.TokenImg")
+		}
 	}
 	/**
 	 * @typedef {Object} images
