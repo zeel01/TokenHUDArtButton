@@ -153,7 +153,7 @@ class ShowArt {
 		if (!control) return;
 
 		doc.on("keydown.showArt", (event) =>
-			this.keyEventHandler(event, tile.data.img, game.i18n.localize("TKNHAB.TileImage"))
+			this.keyEventHandler(event, tile.data.img, game.i18n.localize("TKNHAB.TileImg"))
 		);
 	}
 	/**
@@ -225,7 +225,7 @@ class ShowArt {
 			.click((event) =>
 				this.buttonEventHandler(
 					event, tile.img,
-					game.i18n.localize("TKNHAB.TileImage")
+					game.i18n.localize("TKNHAB.TileImg")
 				)
 			)
 		html.find("div.left").append(artButton);
