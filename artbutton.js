@@ -15,6 +15,7 @@ class ShowArt {
 	 * @memberof ShowArt
 	 */
 	static keyEventHandler(event, image, title) {
+		if (event.target.id == "chat-message") return;
 		if (event.shiftKey && (event.key == "Z" || event.key == "X")) {
 			const pop = this.createImagePopup(image, title);
 			if (!event.altKey && game.user.isGM) pop.shareImage();
