@@ -17,7 +17,8 @@
 			"path": "lang/en.json"
 		}
 	],
-	"manifest": "https://raw.githubusercontent.com/zeel01/TokenHUDArtButton/master/module.json",
+	"manifest": "https://github.com/zeel01/TokenHUDArtButton/releases/latest/download/module.json",
 	"url": "https://github.com/zeel01/TokenHUDArtButton",
-	"download": "https://github.com/zeel01/TokenHUDArtButton/releases/download/v1.1.2/artbutton.zip"
+	"download": "https://github.com/zeel01/TokenHUDArtButton/releases/latest/download/artbutton.zip",
+	"readme": "https://github.com/zeel01/TokenHUDArtButton/blob/master/readme.md",
 }
