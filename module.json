@@ -11,9 +11,9 @@
 			"discord": "zeel#4200"
 		}
 	],
-	"version": "100.1.1.4",
-	"minimumCoreVersion": "0.6.5",
-	"compatibleCoreVersion": "0.8.6",
+	"version": "100.1.2.1",
+	"minimumCoreVersion": "9",
+	"compatibleCoreVersion": "9",
 	"socket": "true",
 	"scripts": [
 		"artbutton.js"
