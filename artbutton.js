@@ -6,6 +6,135 @@
  */
 class ShowArt {
 	/**
+	 * Registers keybindings to show art for tokens and tiles.
+	 *
+	 * The default binding is Shift+Z to show the artwork, and
+	 * Shift+X to share the alternative artwork (e.g. Token Actor).
+	 *
+	 * Holding Alt will suppress showing the art to everyone.
+	 *
+	 * @static
+	 * @memberof ShowArt
+	 */
+	static registerBindings() {
+		game.keybindings.register("token-hud-art-button", "token-open", {
+			name: "TKNHAB.kebind.tokenImage.name",
+			//hint: "TKNHAB.kebind.tokenImage.hint",
+			hint: "Shows the art of the currently selected Token or Tile to everyone. Hold alt to show only to yourself.",
+			editable: [
+				{
+					key: "KeyZ",
+					modifiers: ["Shift"]
+				}
+			],
+			onDown: keybind => this.handleShowArt(keybind, false),
+			reservedModifiers: ["Alt"]
+		});
+		game.keybindings.register("token-hud-art-button", "actor-open", {
+			name: "TKNHAB.kebind.actorImage.name",
+			//hint: "TKNHAB.kebind.actorImage.hint",
+			hint: "Shows the art of the Actor for the currently selected Token to everyone. Hold alt to show only to yourself.",
+			editable: [
+				{
+					key: "KeyX",
+					modifiers: ["Shift"]
+				}
+			],
+			onDown: keybind => this.handleShowArt(keybind, true),
+			reservedModifiers: ["Alt"]
+		});
+	}
+
+	
+	/**
+	 * Displays an image popup with the image and title from the 
+	 * currently controlled objects.
+	 *
+	 * For each object, if the image is not null, displays the popup.
+	 * If the alt key is not held, share the popup with all users.
+	 *
+	 * Optionally, an altenative image and title can be used for 
+	 * applicable objects.
+	 *
+	 * @static
+	 * @param {object} keybind - The keybinding data object
+	 * @param {boolean} altImage - Whether or not to use the alternative image and title.
+	 * @memberof ShowArt
+	 */
+	static handleShowArt(keybind, altImage) {
+		game.canvas.activeLayer.controlled.forEach(object => {
+			const { image, title } = this.getObjectData(object, altImage);
+			if (!image) return;
+
+			const pop = this.createImagePopup(image, title);
+			if (!keybind.isAlt && game.user.isGM) pop.shareImage();
+		});
+	}
+
+	/**
+	 * Return the apprpriate image and title for the given object
+	 * depending on the type of document it is.
+	 * 
+	 * If the document isn't supported, the image is null.
+	 *
+	 * When altImage is true, the alternative image and title will 
+	 * be used for applicable objects.
+	 *
+	 * @static
+	 * @param {Placeable} token                      - The object to get the data for.
+	 * @param {boolean} altImage                     - Whether to use the alternative image and title.
+	 * @return {{image: string|null, title: string}}   The image path and title. Image is null for incompatible objects.
+	 * @memberof ShowArt
+	 */
+	static getObjectData(object, altImage) {
+		switch (object.document.documentName) {
+			case "Token": return this.getTokenData(object, altImage);
+			case "Tile": return this.getTileData(object);
+			default: return { image: null, title: "" };
+		}
+	}
+
+	/**
+	 * Return the apprpriate image and title for a token.
+	 *
+	 * When altImage is true, the image and title of the Actor
+	 * the token represents is used. Otherwise, the image and title
+	 * are the token image and name.
+	 *
+	 * @static
+	 * @param {Token} token                       - The Token to get the data for.
+	 * @param {boolean} altImage                  - Whether to use the Actor image.
+	 * @return {{image: string, title: string}}     The image path and title.
+	 * @memberof ShowArt
+	 */
+	static getTokenData(token, altImage) {
+		const actor = this.getTokenActor(token.data);
+		const images = this.getTokenImages(token.data, actor);
+		const titles = this.getTokenTitles(token.data, actor);
+
+		return {
+			image: altImage ? images.actor : images.token,
+			title: altImage ? titles.actor : titles.token
+		};
+	}
+
+
+	/**
+	 * Return the apprpriate image and title for a tile.
+	 *
+	 * @static
+	 * @param {Tile} tile                       - The Tile to get the data for.
+	 * @return {{image: string, title: string}}   The image path and title.
+	 * @memberof ShowArt
+	 */
+	static getTileData(tile) {
+		return {
+			image: tile.data.img,
+			title: game.i18n.localize("TKNHAB.TileImg")
+		};
+	}
+
+	/**
 	 * Handles the keydown events for tile and token keybindings
 	 *
 	 * @static
@@ -140,50 +269,6 @@ class ShowArt {
 	}
 
 	/**
-	 * Adds the keybinding to the selected tile.
-	 *
-	 * @static
-	 * @param {Tile} tile - The selected Tile.
-	 * @param {Boolean} control - Whether or not this Tile is being selected, or deselected.
-	 * @return {null} Early return if control is false.
-	 * @memberof ShowArt
-	 */
-	static prepTileKeybinding(tile, control) {
-		const doc = $(document);
-		doc.off("keydown.showArt");
-		if (!control) return;
-
-		doc.on("keydown.showArt", (event) =>
-			this.keyEventHandler(event, tile.data.img, game.i18n.localize("TKNHAB.TileImg"))
-		);
-	}
-	/**
-	 * Adds the keybinding to the selected token.
-	 *
-	 * @static
-	 * @param {Token} token - The selected Token.
-	 * @param {Boolean} control - Whether or not this Token is being selected, or deselected.
-	 * @return {null} Early return if control is false.
-	 * @memberof ShowArt
-	 */
-	static prepTokenKeybinding(token, control) {
-		const doc = $(document);
-		doc.off("keydown.showArt");
-		if (!control) return;
-
-		const actor = this.getTokenActor(token.data);
-		const images = this.getTokenImages(token.data, actor);
-		const titles = this.getTokenTitles(token.data, actor);
-
-		doc.on("keydown.showArt", (event) =>
-			this.keyEventHandler(
-				event,
-				event.key == "Z" ? images.token : images.actor,
-				event.key == "Z" ? titles.token : titles.actor
-			)
-		);
-	}
-	/**
 	 * Adds the button to the Token HUD,
 	 * and attaches event listeners.
 	 *
@@ -295,13 +380,11 @@ class MultiMediaPopout extends ImagePopout {
 	}
 }
 
+Hooks.once("init", ShowArt.registerBindings.bind(ShowArt));
 
 Hooks.once("ready", () => {
 	game.socket.on("module.token-hud-art-button", MultiMediaPopout._handleShareMedia);
 });
-
-Hooks.on("controlTile", (...args) => ShowArt.prepTileKeybinding(...args));
-Hooks.on("controlToken", (...args) => ShowArt.prepTokenKeybinding(...args));
 
 Hooks.on("renderTileHUD", (...args) => ShowArt.prepTileHUD(...args));
 Hooks.on("renderTokenHUD", (...args) => ShowArt.prepTokenHUD(...args));

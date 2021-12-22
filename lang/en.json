@@ -2,5 +2,9 @@
 	"TKNHAB.TooltipText": "Click to view artwork. Right-click to view token image.",
 	"TKNHAB.TileImg": "Tile Image",
 	"TKNHAB.ActorImg": "Actor Image",
-	"TKNHAB.TokenImg": "Token Image"
+	"TKNHAB.TokenImg": "Token Image",
+	"TKNHAB.kebind.tokenImage.name": "Show Token or Tile art.",
+	"TKNHAB.kebind.tokenImage.hint": "Shows the art of the currently selected Token or Tile to everyone. Hold alt to show only to yourself.",
+	"TKNHAB.kebind.actorImage.name": "Show Actor art.",
+	"TKNHAB.kebind.actorImage.hint": "Shows the art of the Actor for the currently selected Token to everyone. Hold alt to show only to yourself."
 }
