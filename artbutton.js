@@ -237,7 +237,7 @@ class ShowArt {
 		const synthActor = token.actorData;
 
 		let actorImg = synthActor.img || actor.img;
-		let tokenImg = token.img || token.texture.src;
+		let tokenImg = token.texture.src;
 
 		const am = actorImg === mystery;
 		const tm = tokenImg === mystery;
