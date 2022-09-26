@@ -2,6 +2,6 @@
 	{{#if isVideo}}
 		<video autoplay loop playsinline src="{{image}}">
 	{{else}}
-		<div class="lightbox-image" style="background-image: url('{{image}}')" title="{{title}}"></div>
+		<div class="lightbox-image" style="background-image: url('{{image}}'); background-repeat: no-repeat; background-size: contain;" title="{{title}}"></div>
 	{{/if}}
 </form>
