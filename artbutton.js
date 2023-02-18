@@ -108,9 +108,9 @@ class ShowArt {
 	 * @memberof ShowArt
 	 */
 	static getTokenData(token, altImage) {
-		const actor = this.getTokenActor(token.data);
-		const images = this.getTokenImages(token.data, actor);
-		const titles = this.getTokenTitles(token.data, actor);
+		const actor = this.getTokenActor(token.document);
+		const images = this.getTokenImages(token.document, actor);
+		const titles = this.getTokenTitles(token.document, actor);
 
 		return {
 			image: altImage ? images.actor : images.token,
@@ -120,7 +120,7 @@ class ShowArt {
 
 
 	/**
-	 * Return the apprpriate image and title for a tile.
+	 * Return the appropriate image and title for a tile.
 	 *
 	 * @static
 	 * @param {Tile} tile                       - The Tile to get the data for.
@@ -129,7 +129,7 @@ class ShowArt {
 	 */
 	static getTileData(tile) {
 		return {
-			image: tile.data.img,
+			image: tile.document.img,
 			title: game.i18n.localize("TKNHAB.TileImg")
 		};
 	}
@@ -236,8 +236,8 @@ class ShowArt {
 		const mystery = "icons/svg/mystery-man.svg";
 		const synthActor = token.actorData;
 
-		let actorImg = synthActor.img || actor.data.img;
-		let tokenImg = token.img;
+		let actorImg = synthActor.img || actor.img;
+		let tokenImg = token.texture.src;
 
 		const am = actorImg === mystery;
 		const tm = tokenImg === mystery;
