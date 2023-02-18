@@ -5,6 +5,11 @@
  * @namespace ShowArt
  */
 class ShowArt {
+	/** 
+	 * cache of module settings
+	 */ 
+	static _cachedEnableHudButton = true;
+
 	/**
 	 * Registers keybindings to show art for tokens and tiles.
 	 *
@@ -43,6 +48,26 @@ class ShowArt {
 			onDown: keybind => this.handleShowArt(keybind, true),
 			reservedModifiers: ["Alt"]
 		});
+	}
+
+	/**
+	 * Registers the module settings
+	 * 
+	 * @static
+	 * @memberof ShowArt
+	 */
+	static registerConfig() {
+		game.settings.register("token-hud-art-button", "enableHudButton", {
+	        name: game.i18n.localize("TKNHAB.enableHudButton.name"),
+	        hint: game.i18n.localize("TKNHAB.enableHudButton.hint"),
+	        scope: "world",
+	        config: true,
+	        default: true,
+	        type: Boolean,
+	        onChange: value => { // value is the new value of the setting
+				this._cachedEnableHudButton = value;
+			},
+	    });
 	}
 
 	
@@ -279,6 +304,11 @@ class ShowArt {
 	 * @memberof ShowArt
 	 */
 	static prepTokenHUD(hud, html, token) {
+		// check setting, early out if hud button is disabled
+		if(!this._cachedEnableHudButton) {
+			return;
+		}
+
 		const actor = this.getTokenActor(token);
 		const images = this.getTokenImages(token, actor);
 		const titles = this.getTokenTitles(token, actor);
@@ -305,6 +335,11 @@ class ShowArt {
 	 * @memberof ShowArt
 	 */
 	static prepTileHUD(hud, html, tile) {
+		// check setting, early out if hud button is disabled
+		if(!this._cachedEnableHudButton) {
+			return;
+		}
+
 		const artButton = this.createButton();
 
 		$(artButton)
@@ -380,10 +415,17 @@ class MultiMediaPopout extends ImagePopout {
 	}
 }
 
-Hooks.once("init", ShowArt.registerBindings.bind(ShowArt));
+Hooks.once("init", () => {
+	const registerKeybinds = ShowArt.registerBindings.bind(ShowArt);
+	registerKeybinds();
+
+	const registerSettings = ShowArt.registerConfig.bind(ShowArt);
+	registerSettings();
+});
 
 Hooks.once("ready", () => {
 	game.socket.on("module.token-hud-art-button", MultiMediaPopout._handleShareMedia);
+	ShowArt._cachedEnableHudButton = Boolean(game.settings.get("token-hud-art-button", "enableHudButton"));
 });
 
 Hooks.on("renderTileHUD", (...args) => ShowArt.prepTileHUD(...args));

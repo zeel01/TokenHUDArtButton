@@ -6,5 +6,7 @@
 	"TKNHAB.kebind.tokenImage.name": "Show Token or Tile art.",
 	"TKNHAB.kebind.tokenImage.hint": "Shows the art of the currently selected Token or Tile to everyone. Hold alt to show only to yourself.",
 	"TKNHAB.kebind.actorImage.name": "Show Actor art.",
-	"TKNHAB.kebind.actorImage.hint": "Shows the art of the Actor for the currently selected Token to everyone. Hold alt to show only to yourself."
+	"TKNHAB.kebind.actorImage.hint": "Shows the art of the Actor for the currently selected Token to everyone. Hold alt to show only to yourself.",
+	"TKNHAB.enableHudButton.name": "Show token/tile HUD button.",
+	"TKNHAB.enableHudButton.hint": "Show or hide the HUD button for tokens or tiles to show the art."
 }
