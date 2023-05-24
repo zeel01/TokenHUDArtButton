@@ -129,7 +129,7 @@ class ShowArt {
 	 */
 	static getTileData(tile) {
 		return {
-			image: tile.document.img,
+			image: tile.document.texture.src,
 			title: game.i18n.localize("TKNHAB.TileImg")
 		};
 	}
@@ -310,7 +310,7 @@ class ShowArt {
 		$(artButton)
 			.click((event) =>
 				this.buttonEventHandler(
-					event, tile.img,
+					event, tile.texture.src,
 					game.i18n.localize("TKNHAB.TileImg")
 				)
 			)
